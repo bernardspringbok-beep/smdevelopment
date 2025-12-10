@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SM Development Centre</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {font-family: Arial, sans-serif; margin:0; padding:0; background:#f4f4f9; color:#333;}
+    header {background:#004080; color:white; padding:20px; text-align:center; position:sticky; top:0; z-index:10;}
+    nav {background:#0066cc; padding:10px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center;}
+    nav a {color:white; text-decoration:none; font-weight:bold; padding:8px 12px; border-radius:4px;}
+    nav a:hover {color:#ff9900;}
+    .hero {background:linear-gradient(135deg, #0066cc, #ff9900); color:white; text-align:center; padding:60px 20px;}
+    .hero h1 {font-size:40px; margin-bottom:10px;}
+    .hero p {font-size:18px; margin-bottom:20px;}
+
+    /* Dropdowns (click to open) */
+    .dropbtn {background:#ff9900; color:white; padding:12px 25px; border:none; border-radius:6px; cursor:pointer; font-weight:bold;}
+    .dropbtn:hover {background:#cc7700;}
+    .dropdown {position:relative; display:inline-block;}
+    .dropdown-panel {display:none; position:absolute; left:0; right:0; margin-top:8px; background:#fff; border-radius:8px; box-shadow:0 10px 20px rgba(0,0,0,0.15); z-index:1000; padding:16px; min-width:300px;}
+    .dropdown.open .dropdown-panel {display:block;}
+
+    section {padding:40px 20px; max-width:1000px; margin:auto;}
+    h2 {color:#004080; margin-bottom:20px;}
+    .impact {display:flex; justify-content:space-around; text-align:center; flex-wrap:wrap; gap:12px;}
+    .impact div {background:#ffe6cc; padding:20px; border-radius:8px; flex:1; min-width:200px;}
+    .testimonial {background:#fff3e6; padding:20px; border-left:5px solid #ff9900; margin-bottom:20px; border-radius:5px;}
+
+    /* Collapsibles */
+    .collapsible {background:#ff9900; color:white; cursor:pointer; padding:12px; border:none; text-align:left; outline:none; margin-bottom:6px; border-radius:6px; font-weight:bold;}
+    .collapsible.active {background:#cc7700;}
+    .content {display:none; padding:12px; background:#ffe6cc; border-radius:6px; margin-bottom:10px;}
+
+    /* Forms */
+    input, textarea, select {width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; margin-bottom:12px; box-sizing:border-box;}
+    button[type="submit"] {background:#ff9900; color:white; border:none; padding:12px 20px; border-radius:6px; cursor:pointer; font-weight:bold;}
+    button[type="submit"]:hover {background:#cc7700;}
+
+    /* Contact Details Section */
+    .contact-details {background:#fff; padding:25px; border-radius:8px; box-shadow:0 5px 15px rgba(0,0,0,0.1); margin-top:30px;}
+    .contact-details h3 {color:#004080; margin-top:0;}
+    .contact-info {display:flex; flex-wrap:wrap; gap:20px; margin-top:15px;}
+    .contact-item {flex:1; min-width:200px;}
+    .contact-item p {margin:5px 0; display:flex; align-items:center; gap:10px;}
+    .contact-item a {color:#0066cc; text-decoration:none;}
+    .contact-item a:hover {text-decoration:underline;}
+
+    /* Footer */
+    footer {background:#004080; color:white; text-align:center; padding:20px; margin-top:40px;}
+    .social a {margin:0 10px; color:white; text-decoration:none; font-weight:bold;}
+
+    /* Back to Top */
+    #topBtn {
+      display:none; position:fixed; bottom:20px; right:20px;
+      background:#ff9900; color:white; border:none; padding:12px 18px;
+      border-radius:50%; cursor:pointer; font-weight:bold;
+      box-shadow:0px 4px 6px rgba(0,0,0,0.2); z-index:9999;
+    }
+    #topBtn:hover {background:#cc7700;}
+
+    /* Responsive */
+    @media (max-width:700px) {
+      .hero h1 {font-size:32px;}
+      .dropdown {width:100%;}
+      .dropdown-panel {position:static; box-shadow:none; margin-top:8px;}
+      .impact div {min-width:100%;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>SM Development Centre NPC</h1>
+    <p>Empowering Pixley Ka Seme through Education and Community Development</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#about">About Us</a>
+    <a href="#programs">Programs</a>
+    <a href="#impact">Impact</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#faq">FAQ</a>
+
+    <!-- Apply dropdown -->
+    <div class="dropdown" id="applyDropdown">
+      <button class="dropbtn" aria-expanded="false">Apply for Tutoring ⬇</button>
+      <div class="dropdown-panel">
+        <p style="margin:0 0 10px; font-weight:bold; color:#004080;">Choose an option:</p>
+        <a href="#applyLearner" style="display:block; padding:8px 10px; border-radius:6px; background:#ffe6cc; color:#333; text-decoration:none; margin-bottom:8px;">Learner Application</a>
+        <a href="#applyVolunteer" style="display:block; padding:8px 10px; border-radius:6px; background:#ffe6cc; color:#333; text-decoration:none;">Volunteer Application</a>
+      </div>
+    </div>
+
+    <!-- Contact dropdown with embedded form -->
+    <div class="dropdown" id="contactDropdown">
+      <button class="dropbtn" aria-expanded="false">Contact Us ⬇</button>
+      <div class="dropdown-panel">
+        <form action="https://formspree.io/f/mgvgnzyz" method="POST" id="contactDropdownForm">
+          <input type="hidden" name="_subject" value="Contact Form - SM Development Centre">
+          <input type="hidden" name="_replyto" value="bernardspringbok@gmail.com">
+          
+          <input type="text" name="name" id="dd_name" placeholder="Your Name" required />
+          <input type="email" name="email" id="dd_email" placeholder="Your Email" required />
+          <textarea name="message" id="dd_message" placeholder="Your Message" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+        <div style="display:flex; gap:10px; margin-top:10px;">
+          <a href="https://wa.me/27790800781" style="flex:1; text-align:center; background:#ff9900; color:white; padding:10px; border-radius:6px; text-decoration:none; font-weight:bold;">WhatsApp</a>
+          <a href="mailto:bernardspringbok@gmail.com" style="flex:1; text-align:center; background:#004080; color:white; padding:10px; border-radius:6px; text-decoration:none; font-weight:bold;">Email</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Building Hope Through Education</h1>
+    <p>Join us in empowering learners, creating jobs, and strengthening communities.</p>
+  </div>
+
+  <!-- About -->
+  <section id="about">
+    <h2>About Us</h2>
+    <p>SM Development Centre NPC is a registered non-profit company based in De Aar, Northern Cape. We serve the Pixley Ka Seme District with accessible education support and community development initiatives.</p>
+    <p>Our core work includes after-school tutoring aligned to the CAPS curriculum, youth empowerment through career guidance and psycho-social support, and adult learning programs such as ABET literacy, ICT training, and learner's licence preparation.</p>
+    <p>We operate from De Aar with outreach in Britstown and Hanover, partnering with schools, parents, and local stakeholders. Our approach is practical: community-led planning, evidence-based interventions, and measurable outcomes for learners and families.</p>
+  </section>
+
+  <!-- Programs -->
+  <section id="programs">
+    <h2>Our Programs</h2>
+    <button class="collapsible">Tutoring & Academic Support</button>
+    <div class="content"><p>CAPS-aligned after-school tutoring in Mathematics, Science, and English.</p></div>
+
+    <button class="collapsible">Youth Empowerment</button>
+    <div class="content"><p>Career guidance, motivational talks, and psycho-social support.</p></div>
+
+    <button class="collapsible">Adult Learning</button>
+    <div class="content"><p>ABET literacy classes, ICT training, and learner's licence preparation.</p></div>
+  </section>
+
+  <!-- Impact -->
+  <section id="impact">
+    <h2>Our Impact</h2>
+    <div class="impact">
+      <div><h3 id="learners">0</h3><p>Learners Supported</p></div>
+      <div><h3 id="jobs">0</h3><p>Jobs Created</p></div>
+      <div><h3 id="outcomes">0%</h3><p>Improved Academic Outcomes</p></div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <h2>What People Say</h2>
+    <div class="testimonial">
+      <p>"SMD helped my child improve in Mathematics and gave them confidence to dream bigger." – Parent</p>
+    </div>
+    <div class="testimonial">
+      <p>"Through SMD I gained skills and found employment. It changed my life." – Youth Beneficiary</p>
+    </div>
+  </section>
+
+  <!-- FAQ (with your exact answers) -->
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <button class="collapsible">Is tutoring free?</button>
+    <div class="content"><p>Tutoring costs R550 per month per learner.</p></div>
+
+    <button class="collapsible">How do I apply?</button>
+    <div class="content"><p>Use the "Apply for Tutoring" dropdown above to choose Learner or Volunteer application, then complete the form. We will contact you after submission.</p></div>
+
+    <button class="collapsible">Where are sessions held?</button>
+    <div class="content"><p>Sessions are held at our De Aar centre and outreach sites in Britstown and Hanover.</p></div>
+  </section>
+
+  <!-- Apply: Learner -->
+  <section id="applyLearner">
+    <h2>Learner Application</h2>
+    <form action="https://formspree.io/f/mgvgnzyz" method="POST">
+      <input type="hidden" name="_subject" value="Learner Application - SM Development Centre">
+      <input type="hidden" name="_replyto" value="bernardspringbok@gmail.com">
+      
+      <input type="text" name="student_name" placeholder="Student's Full Name" required />
+      <input type="number" name="age" placeholder="Age" min="5" max="25" required />
+      <input type="text" name="grade" placeholder="Grade (e.g. Grade 10)" required />
+      <input type="text" name="subjects" placeholder="Subject(s) Needed (e.g. Maths, Science)" required />
+      <input type="tel" name="parent_phone" placeholder="Parent/Guardian Phone Number" required />
+      <input type="email" name="parent_email" placeholder="Parent/Guardian Email" required />
+      <textarea name="additional_notes" placeholder="Additional Notes (optional)"></textarea>
+      <button type="submit">Submit Application</button>
+    </form>
+  </section>
+
+  <!-- Apply: Volunteer -->
+  <section id="applyVolunteer">
+    <h2>Volunteer Application</h2>
+    <form action="https://formspree.io/f/mgvgnzyz" method="POST">
+      <input type="hidden" name="_subject" value="Volunteer Application - SM Development Centre">
+      <input type="hidden" name="_replyto" value="bernardspringbok@gmail.com">
+      
+      <input type="text" name="volunteer_name" placeholder="Your Full Name" required />
+      <input type="email" name="volunteer_email" placeholder="Your Email" required />
+      <input type="tel" name="volunteer_phone" placeholder="Phone Number" required />
+      <textarea name="volunteer_why" placeholder="Why do you want to volunteer?" required></textarea>
+      <button type="submit">Submit Application</button>
+    </form>
+  </section>
+
+  <!-- Contact Details Section -->
+  <section id="contactDetails">
+    <h2>Contact Details</h2>
+    <div class="contact-details">
+      <h3>Get in Touch Directly</h3>
+      <div class="contact-info">
+        <div class="contact-item">
+          <p><strong>📍 Location:</strong></p>
+          <p>De Aar, Northern Cape, South Africa</p>
+          <p>Serving Pixley Ka Seme District</p>
+          <p style="font-size:14px; color:#666; margin-top:10px;">Main Centre: De Aar<br>Outreach: Britstown & Hanover</p>
+        </div>
+        <div class="contact-item">
+          <p><strong>📱 WhatsApp:</strong></p>
+          <p><a href="https://wa.me/27790800781">079 080 0781</a></p>
+          <p><strong>✉️ Email:</strong></p>
+          <p><a href="mailto:bernardspringbok@gmail.com">bernardspringbok@gmail.com</a></p>
+        </div>
+        <div class="contact-item">
+          <p><strong>⏰ Operating Hours:</strong></p>
+          <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
+          <p>Saturday: 9:00 AM - 1:00 PM</p>
+          <p>Sunday: Closed</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 SM Development Centre NPC | Integrity • Service • Excellence • Teamwork</p>
+    <div class="social">
+      <a href="https://wa.me/27790800781">WhatsApp</a>
+      <a href="mailto:bernardspringbok@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="topBtn" onclick="topFunction()">⬆</button>
+
+  <!-- Scripts -->
+  <script>
+    // Impact counters
+    function animateValue(id, start, end, duration) {
+      const obj = document.getElementById(id);
+      const range = end - start;
+      const startTime = Date.now();
+      const stepTime = Math.max(Math.floor(duration / Math.abs(range)), 10);
+      const timer = setInterval(function() {
+        const progress = Math.min((Date.now() - startTime) / duration, 1);
+        obj.textContent = Math.floor(progress * range + start);
+        if (progress === 1) clearInterval(timer);
+      }, stepTime);
+    }
+    window.onload = function() {
+      animateValue("learners", 0, 1000, 2000);
+      animateValue("jobs", 0, 40, 2000);
+      document.getElementById("outcomes").textContent = "80%";
+    };
+
+    // Collapsibles
+    const coll = document.getElementsByClassName("collapsible");
+    for (let i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        const content = this.nextElementSibling;
+        content.style.display = (content.style.display === "block") ? "none" : "block";
+      });
+    }
+
+    // Dropdowns (click to toggle)
+    function setupDropdown(id) {
+      const container = document.getElementById(id);
+      if (!container) return;
+      const btn = container.querySelector(".dropbtn");
+      btn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        const isOpen = container.classList.contains("open");
+        document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("open"));
+        if (!isOpen) container.classList.add("open");
+        btn.setAttribute("aria-expanded", !isOpen);
+      });
+    }
+    setupDropdown("applyDropdown");
+    setupDropdown("contactDropdown");
+    document.addEventListener("click", () => {
+      document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("open"));
+      document.querySelectorAll(".dropbtn").forEach(b => b.setAttribute("aria-expanded", "false"));
+    });
+
+    // Back to Top button show/hide
+    const topBtn = document.getElementById("topBtn");
+    window.addEventListener("scroll", function() {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        topBtn.style.display = "block";
+      } else {
+        topBtn.style.display = "none";
+      }
+    });
+    function topFunction() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Form submission handling
+    document.addEventListener('DOMContentLoaded', function() {
+      // Handle all forms with Formspree
+      const forms = document.querySelectorAll('form[action="https://formspree.io/f/mgvgnzyz"]');
+      
+      forms.forEach(form => {
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          const formData = new FormData(form);
+          const submitButton = form.querySelector('button[type="submit"]');
+          const originalText = submitButton.textContent;
+          
+          // Show loading state
+          submitButton.textContent = 'Sending...';
+          submitButton.disabled = true;
+          
+          try {
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: formData,
+              headers: {
+                'Accept': 'application/json'
+              }
+            });
+            
+            if (response.ok) {
+              alert('Thank you! Your message has been sent successfully. We will contact you soon.');
+              form.reset();
+              
+              // Close dropdown if it's the contact dropdown form
+              if (form.id === 'contactDropdownForm') {
+                document.getElementById('contactDropdown').classList.remove('open');
+              }
+            } else {
+              alert('There was an error sending your message. Please try again or contact us directly.');
+            }
+          } catch (error) {
+            alert('Network error. Please check your connection and try again.');
+          } finally {
+            // Reset button state
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
